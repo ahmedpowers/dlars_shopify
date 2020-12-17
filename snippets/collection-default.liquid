@@ -1,0 +1,22 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if settings.collection_default %}
+{% assign temp = settings.collection_default_use %}
+{% assign coll = collections[temp] %}
+{% assign products   = coll.products %}
+{% if products.size > 0 %}
+<div class="default-products clearfix">
+  {% if settings.collection_default_heading != blank %}
+  <div class="title title_center">
+    <span>{% comment %}ly_new_settings_replace_for_[ settings.collection_default_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711738"] %}{% assign ly_translation = shop.metafields[namespace]["id2711738"] %}{% else %}{% assign ly_translation = settings.collection_default_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</span>
+  </div>
+  {% endif %}
+
+  <div id="default-products" class="cat-grid clearfix">
+    {% for product in products limit: settings.collection_default_number %}
+    <div class="product_item animated">
+      {% include 'product-item' %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endif %}

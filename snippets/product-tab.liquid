@@ -1,0 +1,71 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% assign tmp = settings.product_shipping_return %}
+{% assign temp = pages[tmp] %}
+
+<div class="product-tab">
+  <ul class="nav nav-tabs responsive" id="product-tab">
+    <li class="active"><a href="#product-description">{{'products.product.description' | t}}</a></li>
+    {% if product.featured_image.alt contains 'iframe' %}
+    <li><a href="#product-video">{{'products.product.video' | t}}</a></li>
+    {% endif %}
+    {% if temp.handle != blank %}
+    <li><a href="#product-shipping-return">{{'products.product.shipping_and_return' | t}}</a></li>
+    {% endif %}
+    {% if settings.reviews_enable %}
+    <li><a id="product-reviews-a" href="#product-reviews">{{'products.product.customer_reviews' | t}}</a></li>
+    {% endif %}
+    {% if settings.tweet_code %}
+    <li><a href="#product-discount">{{'products.product.discount' | t}}</a></li>
+    {% endif %}
+  </ul>
+
+  <div class="tab-content responsive">
+    <div class="tab-pane active" id="product-description">
+      <div itemprop="description">
+        {% comment %}ly_code_replace_for_[product.content]_begin{% endcomment %}{% include 'ly-content' with product %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}
+      </div>
+    </div>
+    {% if product.featured_image.alt contains 'iframe' %}
+    <div class="tab-pane" id="product-video">
+      {{product.featured_image.alt}}
+    </div>
+    {% endif %}
+    {% if temp.handle != blank %}
+    <div class="tab-pane" id="product-shipping-return">
+      {% comment %}ly_code_replace_for_[temp.content]_begin{% endcomment %}{% include 'ly-content' with temp %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}
+    </div>
+    {% endif %}
+    {% if settings.reviews_enable %}
+    <div id="product-reviews" class="tab-pane">
+      <div id="shopify-product-reviews" data-id="{{product.id}}">{% comment %}ly_code_replace_for_[ product.metafields.spr.reviews ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign ns = language | append: 'spr' %}{% assign key = 'reviews' %}{% if product.metafields[ns][key] %}{% assign ly_translation = product.metafields[ns][key] %}{% else %}{% assign ly_translation =  product.metafields.spr.reviews  %}{% endif %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</div>
+    </div>
+    {% endif %}
+    {% if settings.tweet_code %}
+    <div id="product-discount" class="tab-pane">
+      {% assign tmp = settings.product_discount %}
+      {% assign page_tmp = pages[tmp] %}
+      {% comment %}ly_code_replace_for_[page_tmp.content]_begin{% endcomment %}{% include 'ly-content' with page_tmp %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}
+
+      <div class="discount-content">
+        <script>
+          window.twttr = (function (d,s,id) {
+            var t, js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+            js.src="https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+          }(document, "script", "twitter-wjs"));
+        </script>
+        <script>
+          twttr.ready(function (twttr) {
+            twttr.events.bind('tweet', function (event) { jQuery('#tweetCode').show(); });
+          });
+        </script>
+
+        <a class="btn btn-1 ripple" id="tweetLink" href="https://twitter.com/intent/tweet?url={{settings.tweet_code_url}}">{% comment %}ly_new_settings_replace_for_[ settings.tweet_code_button ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711911"] %}{% assign ly_translation = shop.metafields[namespace]["id2711911"] %}{% else %}{% assign ly_translation = settings.tweet_code_button %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</a>
+
+        <div id="tweetCode"><span>{% comment %}ly_new_settings_replace_for_[ settings.tweet_code_mesg ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711912"] %}{% assign ly_translation = shop.metafields[namespace]["id2711912"] %}{% else %}{% assign ly_translation = settings.tweet_code_mesg %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %} <strong>{% comment %}ly_new_settings_replace_for_[ settings.tweet_code_discount ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711913"] %}{% assign ly_translation = shop.metafields[namespace]["id2711913"] %}{% else %}{% assign ly_translation = settings.tweet_code_discount %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</strong></span></div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

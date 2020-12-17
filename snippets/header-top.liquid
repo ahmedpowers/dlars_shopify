@@ -1,0 +1,134 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if settings.sliding_img_show or settings.sliding_list_show or settings.sliding_text_show or settings.sliding_social_icons_show or settings.sliding_feedback %}
+<div id="slidingbar-wrap" class="hidden-xs hidden-sm">
+  <div id="slidingbar-area">
+    <div id="slidingbar">
+      <div class="container">
+        <div class="row">
+          {% if settings.sliding_img_show %}
+          <div class="col-md-3">
+            <div class="slidingbar-widget text_info">
+              <div class="slidingbar-widget-container">
+                <a href="{{settings.sliding_img_link}}">
+                  <img src="{% comment %}ly_asset_replace_for_['sliding_img_upload.jpg' | asset_url]_begin{% endcomment %}{% assign ly_asset = 'sliding_img_upload.jpg' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" alt="{% comment %}ly_new_settings_replace_for_[ settings.sliding_img_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711837"] %}{% assign ly_translation = shop.metafields[namespace]["id2711837"] %}{% else %}{% assign ly_translation = settings.sliding_img_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}" />
+                  {% if settings.sliding_img_heading != blank %}
+                  <div class="caption">
+                    <h2>{% comment %}ly_new_settings_replace_for_[ settings.sliding_img_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711837"] %}{% assign ly_translation = shop.metafields[namespace]["id2711837"] %}{% else %}{% assign ly_translation = settings.sliding_img_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h2>
+                  </div>
+                  {% endif %}
+                </a>
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+          </div>
+          {% endif %}
+          {% if settings.sliding_list_show %}
+          <div class="col-md-3">
+            <div class="slidingbar-widget list_info">
+              {% if settings.sliding_list_heading != blank %}
+              <h5 class="title">{% comment %}ly_new_settings_replace_for_[ settings.sliding_list_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711838"] %}{% assign ly_translation = shop.metafields[namespace]["id2711838"] %}{% else %}{% assign ly_translation = settings.sliding_list_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h5>
+              {% endif %}
+              <div class="slidingbar-widget-container">
+                {% assign sliding_tmp = settings.sliding_link_list %}
+                {% assign sliding_list = linklists[sliding_tmp] %}
+                <ul class="list-unstyled list-styled">
+                  {% for link in sliding_list.links %}
+                  <li>
+                    <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title | escape ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+          </div>
+          {% endif %}
+          {% if settings.sliding_text_show or settings.sliding_social_icons_show %}
+          <div class="col-md-3">
+            {% if settings.sliding_text_show %}
+            <div class="slidingbar-widget contact_info">
+              {% if settings.sliding_text_heading != blank %}
+              <h5 class="title">{% comment %}ly_new_settings_replace_for_[ settings.sliding_text_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711839"] %}{% assign ly_translation = shop.metafields[namespace]["id2711839"] %}{% else %}{% assign ly_translation = settings.sliding_text_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h5>
+              {% endif %}
+              <div class="slidingbar-widget-container">
+                {% comment %}ly_new_settings_replace_for_[ settings.sliding_text_desc ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711840"] %}{% assign ly_translation = shop.metafields[namespace]["id2711840"] %}{% else %}{% assign ly_translation = settings.sliding_text_desc %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+            {% endif %}
+
+            {% if settings.sliding_social_icons_show %}
+            <div class="slidingbar-widget social_info">
+              {% if settings.sliding_social_icons_heading != blank %}
+              <h5 class="title">{% comment %}ly_new_settings_replace_for_[ settings.sliding_social_icons_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711841"] %}{% assign ly_translation = shop.metafields[namespace]["id2711841"] %}{% else %}{% assign ly_translation = settings.sliding_social_icons_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h5>
+              {% endif %}
+              <div class="slidingbar-widget-container">
+                {% include 'social-media' %}
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% if settings.sliding_feedback %}
+          <div class="col-md-3">
+            <div class="slidingbar-widget feedback_info">
+              {% if settings.sliding_feedback_heading != blank %}
+              <h5 class="title">{% comment %}ly_new_settings_replace_for_[ settings.sliding_feedback_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711842"] %}{% assign ly_translation = shop.metafields[namespace]["id2711842"] %}{% else %}{% assign ly_translation = settings.sliding_feedback_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h5>
+              {% endif %}
+              <div class="slidingbar-widget-container">
+                {% form 'contact' %}
+                <div class="group-input">      
+                  <input id="feedback_name" placeholder="{% comment %}ly_i18n_replace_for_[ 'contact.form.name' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'contact.form.name' | t }}{% endcapture %}{% include 'ly-static-string' with '7405618' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %} *" required="required" type="text" id="name" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.first_name }} {{ customer.last_name }}{% endif %}" name="contact[name]" />
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                </div>
+                <div class="group-input">      
+                  <input id="feedback_email" placeholder="{% comment %}ly_i18n_replace_for_[ 'contact.form.email' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'contact.form.email' | t }}{% endcapture %}{% include 'ly-static-string' with '7405619' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %} *" required="required" type="email" id="email" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" name="contact[email]" />
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                </div>
+                <div class="group-input">      
+                  <textarea id="feedback_message" placeholder="{% comment %}ly_i18n_replace_for_[ 'contact.form.message' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'contact.form.message' | t }}{% endcapture %}{% include 'ly-static-string' with '7405620' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %} *" required="required" id="message" cols="40" rows="5" class="input" name="contact[answer]">{{ form.body }}</textarea>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                </div>
+                <button id="feedback_submit" type="submit" class="ripple btn btn-1">
+                  {% comment %}ly_i18n_replace_for_[ 'contact.form.send' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'contact.form.send' | t }}{% endcapture %}{% include 'ly-static-string' with '7405621' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+                </button>
+                <div class="feedback_notify"></div>
+                {% endform %}
+                <script>
+                  jQuery('.feedback_info form.contact-form').submit(function(event){
+                    var form = jQuery('.feedback_info form');
+                    jQuery.ajax({
+                      type: "POST",
+                      async: true,
+                      url: '/contact',
+                      data: form.serialize(),
+                      beforeSend: function() {
+                        jQuery('.feedback_notify').hide();
+                        jQuery('#feedback_submit').html("{{settings.sliding_feedback_waiting | replace:'"','\"'}}");
+                      },
+                      error: function(t) {
+                        jQuery('#feedback_submit').html("{% comment %}ly_i18n_replace_for_[ 'contact.form.send' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'contact.form.send' | t }}{% endcapture %}{% include 'ly-static-string' with '7405621' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}");
+                        jQuery('.feedback_notify').show().html("{{settings.sliding_feedback_error | replace:'"','\"'}}");
+                      },
+                      success: function(response) {
+                        jQuery('#feedback_submit').html("{% comment %}ly_i18n_replace_for_[ 'contact.form.send' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'contact.form.send' | t }}{% endcapture %}{% include 'ly-static-string' with '7405621' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}");
+                        jQuery('.feedback_notify').show().html("{{settings.sliding_feedback_thankyou | replace:'"','\"'}}");
+                      }
+                    });    
+                    event.preventDefault();
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="sb-toggle-wrapper"><span class="sb-toggle"></span></div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,294 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="dec1478478">
+
+      <div class="main4514">
+          {% if settings.mailing_list_heading != blank %}
+          <h3 class="title title_left">{% comment %}ly_new_settings_replace_for_[ settings.mailing_list_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711825"] %}{% assign ly_translation = shop.metafields[namespace]["id2711825"] %}{% else %}{% assign ly_translation = settings.mailing_list_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h3>
+          {% endif %}
+          <div class="inner">
+               
+            {% if settings.mailing_list_show == 'mailchimp' %}
+            <form action="{{ settings.mailing_form_action }}" method="post" id="mc-embedded-subscribe-form" class="mailing-form" name="mc-embedded-subscribe-form" target="_blank">
+              <div class="group-input">      
+                <input type="email" required="required" name="EMAIL" id="email-input" />
+                <span class="bar"></span>
+                <label>{% comment %}ly_new_settings_replace_for_[ settings.mailing_list_emailtext ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711826"] %}{% assign ly_translation = shop.metafields[namespace]["id2711826"] %}{% else %}{% assign ly_translation = settings.mailing_list_emailtext %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</label>
+                <button type="submit" class="btn-sahi"><span class="Subscribe"><ly-as-2711827>Submit</ly-as-2711827></span></button>
+              </div>
+            </form>
+            {% elsif settings.mailing_list_show == 'campaignmonitor' %}
+            {% assign words = settings.mailing_form_action | split: '/' %}
+            <form action="{{settings.mailing_form_action}}" method="post" class="mailing-form" target="_blank">
+              <div class="group-input">      
+                <input type="email" required="required" name="cm-{{ words.last }}-{{ words.last }}" id="fieldEmail" />
+                <span class="bar"></span>
+                <label>{% comment %}ly_new_settings_replace_for_[ settings.mailing_list_emailtext ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711826"] %}{% assign ly_translation = shop.metafields[namespace]["id2711826"] %}{% else %}{% assign ly_translation = settings.mailing_list_emailtext %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</label>
+                <button type="submit"><i class="zmdi"></i></button>
+              </div>
+            </form>
+            {% endif %}
+         
+          </div>
+          
+        </div>
+    
+
+
+</div>
+
+
+
+
+
+<footer id="footer">
+  <div id="footer-bottom" class="container">
+    {% if settings.snow_footer_bottom %}
+    <span class="snow"></span>
+    {% endif %}
+    <div class="row">
+      {% if settings.footer_about_show %}
+      <div class="col-sm-6 col-md-3">
+        <div class="widget-wrapper animated">
+          {% if settings.footer_about_heading != blank %}
+          <h3 class="title title_left">{{ settings.footer_about_heading }}</h3>
+          {% endif %}
+          <div class="inner about_us">
+            {% if settings.footer_about_message != blank %}
+            <p class="message">{% comment %}ly_new_settings_replace_for_[ settings.footer_about_message ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id6891352"] %}{% assign ly_translation = shop.metafields[namespace]["id6891352"] %}{% else %}{% assign ly_translation = settings.footer_about_message %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</p>
+            {% endif %}
+            <ul class="list-unstyled">
+              {% if settings.footer_about_address != blank %}
+              <li>
+                <i class="zmdi zmdi-home"></i>{{settings.footer_about_address}}
+              </li>
+              {% endif %}
+              {% if settings.footer_about_email != blank %}
+              <li>
+                <i class="zmdi zmdi-email"></i><a href="mailto:{{settings.footer_about_email}}">{{settings.footer_about_email}}</a>
+              </li>
+              {% endif %}
+              {% if settings.footer_about_phone != blank %}
+              <li>
+                <i class="zmdi zmdi-phone"></i>{{settings.footer_about_phone}}
+              </li>
+              {% endif %}
+              {% if settings.footer_about_fax != blank %}
+              <li>
+                <i class="zmdi zmdi-local-printshop"></i>{{settings.footer_about_fax}}
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if settings.footer_linklist1_show %}
+      <div class="col-sm-6 col-md-3 bottom-menu">
+        <div class="widget-wrapper animated">
+          {% if settings.footer_linklist1_heading != blank %}
+          <h3 class="title title_left"><ly-as-2711830>INFORMATION</ly-as-2711830></h3>
+          {% endif %}
+          <div class="inner">
+            {% assign list = linklists[settings.footer_linklist1] %}
+            <ul class="list-unstyled list-styled">
+              {% for link in list.links %}
+              <li>
+                <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      
+      
+       <div class="col-sm-6 col-md-3 bottom-menu">
+        <div class="widget-wrapper animated">
+          
+          <h3 class="title title_left"><ly-as-2711831>YOUR ACCOUNT</ly-as-2711831></h3>
+           
+          <div class="inner">
+           {% for link in linklists.your-account.links %}
+            <ul class="list-unstyled list-styled">
+              
+              <li>
+                <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      
+      {% if settings.mailing_list_show != 'none' %}
+      <div class="col-sm-6 col-md-3 bottom-menu">
+        <div class="widget-wrapper animated">
+          {% if settings.mailing_list_heading != blank %}
+          <h3 class="title title_left"><ly-as-2711832>payment methods</ly-as-2711832></h3>
+          {% endif %}
+          <div class="inner">
+            
+            {% comment %}ly_asset_replace_for_[ 'payment-logo.png' | asset_url | img_tag ]_begin{% endcomment %}{% assign ly_asset = 'payment-logo.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | img_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+            
+             
+            
+          </div>
+           <h3 class="title title_left"><ly-as-2711833>Follow me</ly-as-2711833></h3>
+          {% if settings.social_icons_show %}
+          {% include 'social-media' %}
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      
+      {% comment %}
+      {% if settings.footer_social_visible != 'none' %}
+      <div class="col-sm-6 col-md-3">
+        <div class="widget-wrapper animated">
+          {% if settings.footer_social_heading != blank %}
+          <h3 class="title title_left">{% comment %}ly_new_settings_replace_for_[ settings.footer_social_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711834"] %}{% assign ly_translation = shop.metafields[namespace]["id2711834"] %}{% else %}{% assign ly_translation = settings.footer_social_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h3>
+          {% endif %}
+          <div class="inner">
+            {% case settings.footer_social_visible %}
+            {% when 'twitter' %}
+            {% include 'twitter' %}
+            
+            {% when 'facebook' %}
+            {% include 'facebook' %}
+            {% endcase %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endcomment %}
+      
+      
+    </div>
+  </div>
+  <div id="copyright">
+    {% if settings.snow_footer_copyright %}
+    <span class="snow"></span>
+    {% endif %}
+    <div class="container">
+      <div class="row">
+        <div class="pull-right animated">
+          {% if settings.copyright_linklist_show %}
+          {% assign list = linklists[settings.copyright_linklist] %}
+          <div class="copyright-list">
+            <ul class="list-inline">
+              {% for link in list.links %}
+              <li>
+                <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title | escape ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="pull-left animated">
+          <div id="widget-copyright">
+            <ly-as-2711835>Copyright ©</ly-as-2711835> {{ 'now' | date: '%Y' }} <a href="/">{{ langify_shop_name | escape }}</a> <ly-as-2711836>and All Rights Reserved.</ly-as-2711836>
+          </div>
+          
+          {% comment %}
+          
+          <ul id="payment-method" class="list-inline">
+            {% if settings.show_verisign %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="VeriSign">
+              <i class="pw pw-verisign"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_paypal %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Paypal">
+              <i class="pw pw-paypal"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_visa %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Visa">
+              <i class="pw pw-visa"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_visa_electron %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Visa Electron">
+              <i class="pw pw-visa-electron"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_mastercard %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Mastercard">
+              <i class="pw pw-mastercard"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_maestro %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Maestro">
+              <i class="pw pw-maestro"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_westernunion %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Western Union">
+              <i class="pw pw-westernunion"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_amex %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="American Express">
+              <i class="pw pw-american-express"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_discover %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Discover">
+              <i class="pw pw-discover"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_skrill %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Skrill">
+              <i class="pw pw-skrill"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_bitcoin %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Bitcoin">
+              <i class="pw pw-bitcoin-sign"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_amazon %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Amazon">
+              <i class="pw pw-amazon"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_jcb %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="JCB">
+              <i class="pw pw-jcb"></i>
+            </li>
+            {% endif %}
+
+            {% if settings.show_google_wallet %}
+            <li class="btooltip" data-toggle="tooltip" data-placement="top" title="Google Wallet">
+              <i class="pw pw-google-wallet"></i>
+            </li>
+            {% endif %}
+          </ul>
+          
+          
+          {% endcomment %}
+
+          
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

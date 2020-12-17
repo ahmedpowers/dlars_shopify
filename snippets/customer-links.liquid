@@ -1,0 +1,33 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if shop.customer_accounts_enabled %}
+{% if customer %}
+<a href="/account">{% comment %}ly_i18n_replace_for_[ 'general.top.my_account' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.top.my_account' | t }}{% endcapture %}{% include 'ly-static-string' with '7405543' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+{% else %}
+<a href="/account/login" class="account-link"><ly-as-2711794>Login</ly-as-2711794></a>
+<div class="nav-dropdown">
+  <div class="nav-dropdown-inner">
+    {% form 'customer_login' %}
+    <div class="group-input">      
+      <input type="email" required="required" name="customer[email]" id="customer_email_box" />
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>{{ 'customer.login.email' | t }} *</label>
+    </div>
+    {% if form.password_needed %}
+    <div class="group-input">      
+      <input type="password" required="required" name="customer[password]" id="customer_password_box" />
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>{{ 'customer.login.password' | t }} *</label>
+    </div>
+    {% endif %}
+    <div class="buttons">
+      <button class="btn btn-block btn-1 ripple" type="submit">{{'customer.login.sign_in' | t}}</button>
+      {% if shop.customer_accounts_optional %}
+      <a href="/account/register">{% comment %}ly_i18n_replace_for_[ 'general.top.register' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.top.register' | t }}{% endcapture %}{% include 'ly-static-string' with '7405547' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+      {% endif %}
+    </div>
+    {% endform %}
+  </div>
+</div>
+{% endif %}
+{% endif %}

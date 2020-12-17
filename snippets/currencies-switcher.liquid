@@ -1,0 +1,19 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}<div class="currency">
+  <a class="currency_wrapper" href="javascript:;">
+    <i class="sub-dropdown1"></i>
+    <i class="sub-dropdown"></i>
+
+    {% comment %}ly_i18n_replace_for_['general.top.currency' | t]_begin{% endcomment %}{% capture ly_template %}{{'general.top.currency' | t}}{% endcapture %}{% include 'ly-static-string' with '7074063' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %} - <span class="currency_code">{{ shop.currency }}</span>
+    <i class="icomoon-arrow-down"></i>
+  </a>
+  <select class="currencies_src" name="currencies">
+    {% capture codes %},USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK,{% endcapture %}
+    {% assign supported_codes = settings.supported_currencies | split: ' ' %}
+    <option value="{{ shop.currency }}" selected="selected">{{ shop.currency }}</option>
+    {% for code in supported_codes %}
+    {% if code != shop.currency and codes contains code %}
+    <option value="{{ code }}">{{ code }}</option>
+    {% endif %}
+    {% endfor %}
+  </select>
+</div>

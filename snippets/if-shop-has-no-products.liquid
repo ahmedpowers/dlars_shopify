@@ -1,0 +1,13 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if shop.products_count < 1 %}
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-24 align-center">
+      <h2 class="align-center"><ly-as-2711875>Welcome to your store!</ly-as-2711875></h2>
+      <p><ly-as-2711876>It looks like you don't have any products yet, would you like to</ly-as-2711876> <a href="/admin/products/new"><ly-as-2711877>create some now</ly-as-2711877></a>?</p>
+    </div>
+    
+  </div>
+</div>
+{% endif %}

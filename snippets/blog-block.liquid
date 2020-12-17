@@ -1,0 +1,44 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if settings.home_blog_enable %}
+<div class="home-blog container">
+  {% if settings.home_blog_heading != blank %}
+  <h2 class="title title_center">
+    <span>{% comment %}ly_new_settings_replace_for_[ settings.home_blog_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711729"] %}{% assign ly_translation = shop.metafields[namespace]["id2711729"] %}{% else %}{% assign ly_translation = settings.home_blog_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</span>
+  </h2>
+  {% endif %}
+  <div id="home-blog" class="row">
+    {% assign tmp = settings.home_blog %}
+    {% assign blog = blogs[tmp] %}
+    {% for article in blog.articles limit:settings.home_blog_number %}
+    <div class="col-sm-4 col-xs-6">
+      <div class="article animated">
+        {% if article.excerpt contains "<iframe" %}
+        {% assign src = article.excerpt | split: 'src="' %}
+        {% assign src = src[1] | split: '"' | first %}
+        {% if src %}
+        <div class="excerpt responsive-video">
+          <iframe width="100%" scrolling="no" frameborder="no" src="{{ src }}"></iframe>
+          <a class="hover_border" href="{{ article.url }}"><span class="readmore">{{'blogs.article.read_more' | t}}</span></a>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% if article.excerpt contains "<img" %}
+        {% assign src = article.excerpt | split: 'src="' %}
+        {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn' | replace: 'http:http://', 'http://' | remove: 'https:' %}
+        {% if src %}
+        <div class="excerpt responsive-img">
+          <a href="{{ article.url }}">
+            <img alt="{% comment %}ly_code_replace_for_[article.title]_begin{% endcomment %}{% include 'ly-title' with article %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}" src="{{ src }}" />
+          </a>
+          <a class="hover_border" href="{{ article.url }}"><span class="readmore">{{'blogs.article.read_more' | t}}</span></a>
+        </div>
+        {% endif %}
+        {% endif %}
+        
+        <h3 class="title"><a href="{{ article.url }}">{% comment %}ly_code_replace_for_[ article.title | escape ]_begin{% endcomment %}{% include 'ly-title' with article %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}</a></h3>
+        <div class="content">{% comment %}ly_code_replace_for_[ article.content | strip_html | truncatewords: 30 ]_begin{% endcomment %}{% include 'ly-content' with article %}{{ ly_translation | strip_html | truncatewords: 30 }}{% comment %}ly_code_replace_end{% endcomment %}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

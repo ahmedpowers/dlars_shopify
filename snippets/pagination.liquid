@@ -1,0 +1,32 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if paginate.pages > 1 %}
+<div class="pagination clearfix">
+  <ul class="list-inline pagination-num">
+    {% if paginate.previous %}
+    <li class="prev"><a href="{{ paginate.previous.url }}"><i class="fa fa-angle-left"></i></a></li>
+    {% else %}
+    <li class="prev hide"><i class="fa fa-angle-left"></i></li>
+    {% endif %}
+    
+    {% for part in paginate.parts %}
+    {% if part.is_link %}
+    <li><a href="{{ part.url }}">{% comment %}ly_code_replace_for_[ part.title ]_begin{% endcomment %}{% include 'ly-title' with part %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a></li>
+    {% else %}
+    {% if part.title == '&hellip;' %}
+    <li class="ellipsis">{% comment %}ly_code_replace_for_[ part.title ]_begin{% endcomment %}{% include 'ly-title' with part %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</li>
+    {% else %}
+    <li class="active">{% comment %}ly_code_replace_for_[ part.title ]_begin{% endcomment %}{% include 'ly-title' with part %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}     
+    
+    {% if paginate.next %}
+    <li class="next"><a href="{{ paginate.next.url }}"><i class="fa fa-angle-right"></i></a></li>
+    {% else %}
+    <li class="next hide"><i class="fa fa-angle-right"></i></li>
+    {% endif %}
+  </ul>
+  <p class="pagination-num-showing">
+    {{'general.pagination.showing' | t}}: {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} {{'general.pagination.of' | t}} {{ paginate.items }}
+  </p>
+</div>
+{% endif %}

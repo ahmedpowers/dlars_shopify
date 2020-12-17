@@ -1,0 +1,198 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% include 'collection-slider' %}
+{% if template == 'collection' %}
+<div class="filter_wrap">
+  <div class="filter_heading">
+    <h1 class="title">{% comment %}ly_code_replace_for_[collection.title]_begin{% endcomment %}{% include 'ly-title' with collection %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+    <span class="products_count">{{ collection.products_count }} {{ collection.products_count | pluralize: '<ly-as-2711759>collections.general.product</ly-as-2711759>', '<ly-as-2711760>collections.general.products</ly-as-2711760>' | t }}</span>
+    <div class="options-wrapper">
+      {% if settings.collection_sort %}
+      <div class="toggle_sortby">
+        <div class="advanced-sortby dropdown-parent">
+          <span class="btn sortby-controller " data-toggle="dropdown">{{'collections.sorting.title' | t}} <i></i></span>
+          <ul class="dropdown-menu fields">
+            <li><span class="field" data-sort="manual">{{'collections.sorting.featured' | t}}</span></li>
+            <li><span class="field" data-sort="price-ascending">{{'collections.sorting.price_ascending' | t}}</span></li>
+            <li><span class="field" data-sort="price-descending">{{'collections.sorting.price_descending' | t}}</span></li>
+            <li><span class="field" data-sort="title-ascending">{{'collections.sorting.az' | t}}</span></li>
+            <li><span class="field" data-sort="title-descending">{{'collections.sorting.za' | t}}</span></li>
+            <li><span class="field" data-sort="created-ascending">{{'collections.sorting.date_descending' | t}}</span></li>
+            <li><span class="field" data-sort="created-descending">{{'collections.sorting.date_ascending' | t}}</span></li>
+            <li><span class="field" data-sort="best-selling">{{'collections.sorting.best_selling' | t}}</span></li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="toggle_filter">
+        <span class="btn filter-controller" data-show="{{ 'collections.general.show_filters' | t }}" data-hide="{{ 'collections.general.hide_filters' | t }}"><span>{{ 'collections.general.show_filters' | t }}</span><i></i></span>
+      </div>
+
+      {% if settings.collection_grid_list != 'none' %}
+      <div class="toggle_view">
+        <span class="filter_label"></span>
+        <ul class="grid_list">
+          <li id="catSelectGrid" class="grid{% if settings.collection_grid_list == 'grid' %} active{% endif %}">
+            <i class="icon-grid btooltip" data-toggle="tooltip" title="{{ 'collections.general.grid' | t }}"></i>
+          </li>
+          <li id="catSelectList" class="list{% if settings.collection_grid_list == 'list' %} active{% endif %}">
+            <i class="icon-list btooltip" data-toggle="tooltip" title="{{ 'collections.general.list' | t }}"></i>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div id="filters">
+    <div class="filter_close">
+      <button class="icomoon-cross"></button>
+    </div>
+    <div class="wrap">
+      {% if settings.collection_browse %}
+      <div class="column">
+        <div class="filter_title"><ly-as-2711761>Special Collection</ly-as-2711761></div>
+        <div class="advanced-collection filter_container">
+          <ul class="list-unstyled fields">
+            {% for coll in collections %}
+            {% unless coll.handle == 'brands' or coll.handle == 'all' %}
+
+            {% unless coll.handle == collection.handle %}
+            <li>
+              <a class="field" href="{{ coll.url }}{% if collection.sort_by != blank %}?sort_by={{ collection.sort_by }}{% endif %}">{% comment %}ly_code_replace_for_[ coll.title | escape ]_begin{% endcomment %}{% include 'ly-title' with coll %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+            </li>
+            {% else %}
+            <li>
+              <span class="field active">{% comment %}ly_code_replace_for_[ coll.title | escape ]_begin{% endcomment %}{% include 'ly-title' with coll %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}</span>
+            </li>
+            {% endunless %}
+
+            {% endunless %}
+            {% endfor %}
+
+            {% if collection.handle == 'all' %}
+            <li>
+              <span class="field active">{{'collections.general.all' | t}}</span>
+            </li>
+            {% else %}
+            <li>
+              <a class="field" href="/collections/all{% if collection.sort_by != blank %}?sort_by={{ collection.sort_by }}{% endif %}">{{'collections.general.all' | t}}</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      {% include 'collection-filter' %}
+    </div>
+  </div>
+</div>
+{% if settings.collection_infinite_scoll %}
+{% comment %}ly_asset_replace_for_[ 'jquery.ba-dotimeout.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'jquery.ba-dotimeout.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+{% endif %}
+<script>
+  var val_default = '{{ collection.sort_by | default: collection.default_sort_by | escape }}';
+  {% if settings.collection_infinite_scoll %}
+  {% if settings.collection_infinite_scoll_auto %}
+  var pInfScrLoading = false;
+  var pInfScrMore = true;
+  var pInfScrDelay = 100;
+
+  function pInfScrExecute() {
+    if(jQuery(document).height() - 800 < (jQuery(document).scrollTop() + jQuery(window).height())) {
+
+      pInfScrNode = jQuery('.infinite_scoll').last();
+      pInfScrURL = jQuery('.infinite_scoll a').last().attr("href");
+      if(!pInfScrLoading && pInfScrNode.length > 0 && pInfScrMore) {
+        jQuery.ajax({
+          type: 'GET',
+          url: pInfScrURL,
+          beforeSend: function() {
+            pInfScrLoading = true;
+            jQuery('.loading_img').fadeIn();
+          },
+          success: function(data) {
+            var filteredData = $(data).find(".product_item");
+            jQuery("#sandBox > .row").append(filteredData);
+            roar.buildProductItem();
+            pInfScrLoading = false;
+            setTimeout(function() {
+              jQuery('.loading_img').fadeOut();
+            }, 500);
+
+            if(jQuery(data).find(".infinite_scoll a").length){
+              jQuery('.infinite_scoll a').last().attr("href", jQuery(data).find(".infinite_scoll a").last().attr("href"));
+            }
+            else{
+              pInfScrMore = false;
+              jQuery('.infinite_scoll').empty();
+            }
+          },
+          dataType: "html"
+        });
+      }
+    }
+  }
+  jQuery(document).ready(function ($) {
+    $(window).scroll(function(){
+      $.doTimeout( 'scroll', pInfScrDelay, pInfScrExecute);
+      if( $(document).height() - 800 > $(document).scrollTop() + $(window).height() ) {
+        pInfScrDelay = 100;
+      }
+    });
+  });
+  {% else %}
+  var pInfScrLoading = false;
+  var pInfScrMore = true;
+  var pInfScrDelay = 250;
+  function pInfScrExecute() {
+    pInfScrNode = $('.infinite_scoll').last();	
+    pInfScrURL = $('.infinite_scoll a').last().attr("href");
+    if(pInfScrNode.length > 0 && pInfScrMore) {
+      $.ajax({
+        type: 'GET',
+        url: pInfScrURL,
+        beforeSend: function() {
+          pInfScrLoading = true;
+          jQuery('.infinite_scoll').addClass('invisible');
+          jQuery('.loading_img').fadeIn();
+        },
+        success: function(data) {
+          var filteredData = $(data).find(".product_item");
+          jQuery("#sandBox > .row").append(filteredData);
+          roar.buildProductItem();
+          pInfScrLoading = false;
+          setTimeout(function() {
+              jQuery('.loading_img').fadeOut();
+            }, 500);
+
+          if(jQuery(data).find(".infinite_scoll a").length){
+            jQuery('.infinite_scoll a').last().attr("href", jQuery(data).find(".infinite_scoll a").last().attr("href"));
+            jQuery('.infinite_scoll').removeClass('invisible');
+          }
+          else{
+            pInfScrMore = false;
+            jQuery('.infinite_scoll').empty();
+          }
+        },
+        dataType: "html"
+      });
+    }
+  }
+
+  function attachClickEvent(){
+    jQuery('.infinite_scoll').on('click', 'a', function(event){
+      pInfScrExecute();
+      event.stopPropagation();
+      return false;
+    });
+  }
+
+  jQuery(document).ready(function ($) {
+    attachClickEvent();
+  });
+  {% endif %}
+  {% endif %}
+</script>
+{% include 'spinner' %}
+{% endif %}

@@ -1,0 +1,58 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if settings.share_facebook or settings.share_twitter or settings.share_pinterest or settings.share_fancy or settings.share_google %}
+
+{% assign is_product = true %}
+{% if template contains 'article' or template contains 'blog' %}
+{% capture permalinkURL %}{{ langify_shop_url }}{{ article.url }}{% endcapture %}
+{% capture shareTitle %}{% comment %}ly_code_replace_for_[ article.title ]_begin{% endcomment %}{% include 'ly-title' with article %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}{% endcapture %}
+{% assign is_product = false %}
+
+{% else %}
+{% capture permalinkURL %}{{ langify_shop_url }}{{ product.url }}{% endcapture %}
+{% capture shareTitle %}{% comment %}ly_code_replace_for_[ product.title ]_begin{% endcomment %}{% include 'ly-title' with product %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}{% endcapture %}
+
+{% endif %}
+
+<div class="social-icons" data-permalink="{{ permalinkURL }}">
+  <ul class="list-inline">
+    {% if settings.share_facebook %}
+    <li>
+      <a target="_blank" href="//www.facebook.com/sharer.php?u={{ permalinkURL }}" class="social-wrapper">
+        <span class="social-icon"><i class="fa fa-facebook"></i></span>
+      </a>
+    </li>
+    {% endif %}
+
+    {% if settings.share_twitter %}
+    <li>
+      <a target="_blank" href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ shareTitle }}" class="social-wrapper">
+        <span class="social-icon"><i class="fa fa-twitter"></i></span>
+      </a>
+    </li>
+    {% endif %}
+    
+    {% if settings.share_pinterest and is_product %}
+    <li>
+      <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ product.featured_image | img_url: 'original' }}&amp;description={% comment %}ly_code_replace_for_[ product.title | escape ]_begin{% endcomment %}{% include 'ly-title' with product %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}" class="social-wrapper">
+        <span class="social-icon"><i class="fa fa-pinterest"></i></span>
+      </a>
+    </li>
+    {% endif %}
+
+    {% if settings.share_google %}
+    <li>
+      <a target="_blank" href="//plus.google.com/share?url={{ permalinkURL }}" class="social-wrapper">
+        <span class="social-icon"><i class="fa fa-google-plus"></i></span>
+      </a>
+    </li>
+    {% endif %}
+
+    {% if template contains 'product' %}
+    <li>
+      <a href="mailto:?body={% comment %}ly_code_replace_for_[product.title]_begin{% endcomment %}{% include 'ly-title' with product %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %} ({{langify_shop_url}}{{product.url}})" class="social-wrapper">
+        <span class="social-icon"><i class="fa fa-envelope-o"></i></span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}

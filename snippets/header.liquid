@@ -1,0 +1,319 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+ {% if settings.top_show %}
+<div class="header-top">
+    {% if settings.snow_top %}
+    <span class="snow"></span> {% endif %}
+    <div class="container">
+        <div class="content">{% comment %}ly_new_settings_replace_for_[ settings.top_content ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711847"] %}{% assign ly_translation = shop.metafields[namespace]["id2711847"] %}{% else %}{% assign ly_translation = settings.top_content %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+            <a href="{{settings.top_linkto}}" class="link">{% comment %}ly_new_settings_replace_for_[ settings.top_action ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711848"] %}{% assign ly_translation = shop.metafields[namespace]["id2711848"] %}{% else %}{% assign ly_translation = settings.top_action %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</a>
+            <a href="javascript:;" class="close"><i class="zmdi zmdi-close"></i></a>
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function() {
+            var $_popup_cookie = jQuery.cookie('popup_top_cookie');
+            if ($_popup_cookie == undefined) {
+                jQuery('.header-top').show();
+                jQuery('.header-top .close').click(function(e) {
+                    jQuery('.header-top').slideUp();
+                    jQuery.cookie('popup_top_cookie', 'yes', {
+                        path: '/',
+                        expires: 1
+                    });
+                });
+            }
+        });
+    </script>
+</div>
+{% endif %}
+<div id="header_nav" class="{{settings.header_style}}">
+    {% if settings.header_style == 'style1' %}
+ <span class="top-bar-arrow act"></span> 
+    <div class="container sec558874">
+        {% if settings.header_message or settings.header_deal %}
+        <div class="site-right">
+            <ul class="top-nav1">
+                {% if settings.header_message %}
+                <li class="site-message">
+                    {% comment %}ly_new_settings_replace_for_[ settings.header_message_content ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711849"] %}{% assign ly_translation = shop.metafields[namespace]["id2711849"] %}{% else %}{% assign ly_translation = settings.header_message_content %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+                </li>
+                {% endif %} {% if settings.header_deal and settings.header_deal_expires != blank %}
+                <li class="site-hotdeal">
+                    <a href="{{settings.header_deal_link}}">{% comment %}ly_new_settings_replace_for_[ settings.header_deal_title ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711850"] %}{% assign ly_translation = shop.metafields[namespace]["id2711850"] %}{% else %}{% assign ly_translation = settings.header_deal_title %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %} <span class="hotdeal"></span></a> {% assign offerDay = settings.header_deal_expires | split: '-' %}
+                    <script type="text/javascript">
+                        jQuery(document).ready(function($) {
+                            if (!$('html').hasClass('ie8')) {
+                                var currentDay = new Date();
+                                var offerDay = new Date({
+                                    {
+                                        offerDay[2]
+                                    }
+                                }, {
+                                    {
+                                        offerDay[0]
+                                    }
+                                } - 1, {
+                                    {
+                                        offerDay[1]
+                                    }
+                                });
+
+                                if (currentDay < offerDay)
+                                    $('.site-hotdeal .hotdeal').countdown({
+                                        until: offerDay,
+                                        compact: true
+                                    });
+                                else
+                                    $('.site-hotdeal .hotdeal').parent().hide();
+                            }
+                        });
+                    </script>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="site-wrapper">
+            <div id="site-more">
+
+                <div class="site-links">
+
+                  
+                   <ul class="top-nav3 left4587">
+                     <div class="pc_more sec487">
+                  
+                    <div class="wrap">
+                                  <form action="/search" method="get">
+                                        <div class="group-input" style="margin:0px !Important;">
+                                            <input type="text" name="q" value="{{search_title}}" accesskey="4" autocomplete="off" />
+                                            <span class="highlight"></span>
+                                            <span class="bar"></span>
+                                            <label>
+                                                <ly-as-2711851>Search Our Store</ly-as-2711851>
+                                            </label>
+                                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </div>
+                                    </form>
+
+                                    {% if search.performed and search.results.size > 0 %}{% else %}
+                                    <p class="empty">{% comment %}ly_i18n_replace_for_[ 'search.general.no_products' | t: title: search_title ]_begin{% endcomment %}{% capture ly_template %}{{ 'search.general.no_products' | t: title: search_title }}{% endcapture %}{% include 'ly-static-string' with '7405638' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = search_title  %}{% assign ly_template = ly_template | replace: '[[title]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</p>
+                                    {% endif %}
+                                </div>
+                       
+                     </div>
+                      </ul>
+
+
+                  {% comment %}
+                  
+                    <ul class="top-nav2 left4587">
+
+                        {% if settings.header_menu %} {% assign list = linklists[settings.header_menu_linklist] %} {% for link in list.links %}
+                        <li>
+                            <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+                        </li>
+                        {% endfor %} {% endif %} {% if settings.show_multiple_currencies %}
+                        <li>{% include 'currencies-switcher' with 'dropdown' %}</li>
+                        {% endif %} {% if settings.header_social %} {% endif %}
+
+                    </ul>
+
+                  {% endcomment %}
+                  
+                  
+                  
+                  
+                    {% if settings.header_menu or settings.header_social %} {% endif %} {% if settings.header_customer or settings.header_cart %}
+
+                     <ul class="top-nav3 right478 langswitch">
+
+                    {% include 'ly-languages-switcher' %}  
+
+                    </ul>
+                  
+                  <ul class="top-nav3 right478">
+                      
+                    
+                        
+                  
+                    <ul class="top-nav3 left4587">
+                        {% if settings.header_customer %}
+                        <li class="account-dropdown nav-dropdown-parent sec4700">
+
+                            {% include 'customer-links' %}
+                        </li>
+                        {% endif %}
+
+                    </ul>
+
+                        <li class="account-dropdown nav-dropdown-parent">
+                            <div class="pc_more sec487">
+                               
+                 
+
+                                {% if shop.customer_accounts_enabled %}
+                                <div class="more-ctl nav-dropdown-parent">
+                                    <i class="zmdi zmdi-more-vert"></i>
+
+                                    <div class="nav-dropdown">
+                                        <div class="nav-dropdown-inner">
+                                            <ul class="list-unstyled">
+                                                {% if customer %}
+                                                <li>
+                                                    {% assign page_tmp = pages[settings.wishlist_page] %}
+                                                    <a href="{{page_tmp.url}}">{% comment %}ly_i18n_replace_for_['general.top.wishlist' | t]_begin{% endcomment %}{% capture ly_template %}{{'general.top.wishlist' | t}}{% endcapture %}{% include 'ly-static-string' with '7405639' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/account">{% comment %}ly_i18n_replace_for_[ 'general.top.my_account' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.top.my_account' | t }}{% endcapture %}{% include 'ly-static-string' with '7405640' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/account/logout">{% comment %}ly_i18n_replace_for_[ 'general.top.logout' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.top.logout' | t }}{% endcapture %}{% include 'ly-static-string' with '7405641' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                                                </li>
+                                                {% else %}
+                                                <li>
+                                                    <a href="/account/login">{% comment %}ly_i18n_replace_for_['general.top.wishlist' | t]_begin{% endcomment %}{% capture ly_template %}{{'general.top.wishlist' | t}}{% endcapture %}{% include 'ly-static-string' with '7405639' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/account/login">{% comment %}ly_i18n_replace_for_[ 'customer.login.sign_in' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.login.sign_in' | t }}{% endcapture %}{% include 'ly-static-string' with '7405642' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/account/register">{% comment %}ly_i18n_replace_for_[ 'general.top.register' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.top.register' | t }}{% endcapture %}{% include 'ly-static-string' with '7405643' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="mini-cart nav-dropdown-parent">
+                                    <div class="cart-inner">
+                                        <div class="cart-link">
+                                            <div class="cart-icon">
+                                                <strong>{{cart.item_count}}</strong>
+                                                <span class="cart-icon-handle"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nav-dropdown">
+                                        <div class="nav-dropdown-inner">
+                                            {% include 'cart-sidebar' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+
+                        {% if settings.header_cart %}
+                        <li class="mini-cart nav-dropdown-parent">
+                            <div class="cart-inner">
+                                <a href="/cart" class="cart-link">
+                                    <div class="cart-icon">
+                                        <strong>{{cart.item_count}}</strong>
+                                        <span class="cart-icon-handle"></span>
+                                    </div>
+                                    <strong class="cart-name">{% comment %}ly_i18n_replace_for_['general.cart_info.cart' | t]_begin{% endcomment %}{% capture ly_template %}{{'general.cart_info.cart' | t}}{% endcapture %}{% include 'ly-static-string' with '7405644' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</strong>
+                                    <span class="cart-price">/ <span class="amount">{{cart.total_price | money}}</span></span>
+
+                                </a>
+                            </div>
+                            <div class="nav-dropdown">
+                                <div class="nav-dropdown-inner">
+                                    {% include 'cart-sidebar' %}
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+            <div id="site-logo">
+                <div class="template-logo" style="margin-right:{{settings.logo_margin_right | plus:0 | append:'px'}};margin-top:{{settings.logo_margin_top | plus:0 | append:'px'}};margin-left:{{settings.logo_margin_left | plus:0 | append:'px'}};margin-bottom:{{settings.logo_margin_bottom | plus:0 | append:'px'}};">
+                    <a href="{{langify_shop_url}}" title="{{ langify_shop_name | escape }}">
+            {% if settings.snow_logo %}<span class="snow"></span>{% endif %}
+            {% if settings.logo_image == "logo.png" %}
+            <img class="img-responsive normal_logo" src="{% comment %}ly_asset_replace_for_[ 'logo.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'logo.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" alt="{{ langify_shop_name | escape }}"{% if settings.logo_image_width != blank %} style="width:{{settings.logo_image_width | plus:0 | append:'px'}}"{% endif %} />
+            {% else %}
+            {{ settings.logo_text | escape }}
+            {% endif %}
+
+            {% if settings.logo_image == "logo.png" and settings.logo2x_image_enable %}
+            <img class="img-responsive retina_logo" src="{% comment %}ly_asset_replace_for_[ 'logo2x.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'logo2x.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" alt="{{ langify_shop_name | escape }}" style="width:{{settings.retina_logo_width | plus:0 | append:'px'}};max-height:{{settings.retina_logo_height | plus:0 | append:'px'}}; height: auto !important;" />
+            {% endif %}
+          </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%comment%} Navigation {%endcomment%} {% include 'navigation' %} {% elsif settings.header_style == 'style2' %}
+    <span class="top-bar-arrow act"></span>
+    <div id="top-bar">
+        <div class="container">
+            {% if settings.header_message %}
+            <div class="left-text pull-left">
+                <div class="html"><b>{% comment %}ly_new_settings_replace_for_[ settings.header_message_content ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711849"] %}{% assign ly_translation = shop.metafields[namespace]["id2711849"] %}{% else %}{% assign ly_translation = settings.header_message_content %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</b></div>
+            </div>
+            {% endif %}
+
+            <div class="right-text pull-right">
+
+                <ul id="menu-top-bar-menu" class="top-bar-nav">
+
+                    {% if settings.header_menu %} {% assign list = linklists[settings.header_menu_linklist] %} {% for link in list.links %}
+                    <li><a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a></li>
+                    {% endfor %} {% endif %} {% if settings.show_multiple_currencies %}
+                    <li>{% include 'currencies-switcher' with 'dropdown' %}</li>
+                    {% endif %} {% if settings.header_social %}
+                    <li class="social-media">
+                        <ul class="list-inline">
+                            {% if settings.header_social_facebook %}
+                            <li><a target="_blank" href="{{ settings.social_icons_facebook_link }}" class="social-icon facebook" title="<ly-as-2711853>Facebook</ly-as-2711853>"><i class="fa fa-facebook"></i></a></li>{% endif %} {% if settings.header_social_twitter %}
+                            <li><a target="_blank" href="{{ settings.social_icons_twitter_link }}" class="social-icon twitter" title="<ly-as-2711854>Twitter</ly-as-2711854>"><i class="fa fa-twitter"></i></a></li>{% endif %} {% if settings.header_social_pinterest %}
+                            <li><a target="_blank" href="{{ settings.social_icons_pinterest_link }}" class="social-icon pinterest" title="<ly-as-2711855>Pinterest</ly-as-2711855>"><i class="fa fa-pinterest"></i></a></li>{% endif %} {% if settings.header_social_google %}
+                            <li><a target="_blank" href="{{ settings.social_icons_google_link }}" class="social-icon google" title="<ly-as-2711856>Google Plus</ly-as-2711856>"><i class="fa fa-google-plus"></i></a></li>{% endif %} {% if settings.header_social_youtube %}
+                            <li><a target="_blank" href="{{ settings.social_icons_youtube_link }}" class="social-icon youtube" title="<ly-as-2711857>Youtube</ly-as-2711857>"><i class="fa fa-youtube"></i></a></li>{% endif %} {% if settings.header_social_vimeo %}
+                            <li><a target="_blank" href="{{ settings.social_icons_vimeo_link }}" class="social-icon vimeo" title="<ly-as-2711858>Vimeo</ly-as-2711858>"><i class="fa fa-vimeo-square"></i></a></li>{% endif %} {% if settings.header_social_flickr %}
+                            <li><a target="_blank" href="{{ settings.social_icons_flickr_link }}" class="social-icon flickr" title="<ly-as-2711859>Flickr</ly-as-2711859>"><i class="fa fa-flickr"></i></a></li>{% endif %} {% if settings.header_social_instagram %}
+                            <li><a target="_blank" href="{{ settings.social_icons_instagram_link }}" class="social-icon instagram" title="<ly-as-2711860>Instagram</ly-as-2711860>"><i class="fa fa-instagram"></i></a></li>{% endif %} {% if settings.header_social_tumblr %}
+                            <li><a target="_blank" href="{{ settings.social_icons_tumblr_link }}" class="social-icon tumblr" title="<ly-as-2711861>Tumblr</ly-as-2711861>"><i class="fa fa-tumblr"></i></a></li>{% endif %} {% if settings.header_social_rss %}
+                            <li><a target="_blank" href="{{ settings.social_icons_rss_link }}" class="social-icon rss" title="<ly-as-2711862>RSS Feed</ly-as-2711862>"><i class="fa fa-rss"></i></a></li>{% endif %}
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="navigation_wrapper">
+            <div id="site-logo">
+                <div class="template-logo" style="margin-right:{{settings.logo_margin_right | plus:0 | append:'px'}};margin-top:{{settings.logo_margin_top | plus:0 | append:'px'}};margin-left:{{settings.logo_margin_left | plus:0 | append:'px'}};margin-bottom:{{settings.logo_margin_bottom | plus:0 | append:'px'}};">
+                    <a href="{{langify_shop_url}}" title="{{ langify_shop_name | escape }}">
+            {% if settings.snow_logo %}<span class="snow"></span>{% endif %}
+            {% if settings.logo_image == "logo.png" %}
+            <img class="img-responsive normal_logo" src="{% comment %}ly_asset_replace_for_[ 'logo.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'logo.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" alt="{{ langify_shop_name | escape }}"{% if settings.logo_image_width != blank %} style="width:{{settings.logo_image_width | plus:0 | append:'px'}}"{% endif %} />
+            {% else %}
+            {{ settings.logo_text | escape }}
+            {% endif %}
+
+            {% if settings.logo_image == "logo.png" and settings.logo2x_image_enable %}
+            <img class="img-responsive retina_logo" src="{% comment %}ly_asset_replace_for_[ 'logo2x.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'logo2x.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" alt="{{ langify_shop_name | escape }}" style="width:{{settings.retina_logo_width | plus:0 | append:'px'}};max-height:{{settings.retina_logo_height | plus:0 | append:'px'}}; height: auto !important;" />
+            {% endif %}
+          </a>
+                </div>
+            </div>
+            <div id="site-navigation-wrap">
+                <div class="navigation">
+                    {%comment%} Navigation {%endcomment%} {% include 'navigation' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,14 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% if template != 'page.about' %}
+<div class="page-top">
+  <div class="container">
+    <h1 class="page-title">{{langify_title}}</h1>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% else %}
+<div class="page-top{% if settings.aboutus_bg %} page-about{% endif %}">
+  <div class="container">
+    <h1 class="page-title">{% comment %}ly_new_settings_replace_for_[ settings.aboutus_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711886"] %}{% assign ly_translation = shop.metafields[namespace]["id2711886"] %}{% else %}{% assign ly_translation = settings.aboutus_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</h1>
+  </div>
+</div>
+{% endif %}

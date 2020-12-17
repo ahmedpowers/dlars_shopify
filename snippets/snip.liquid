@@ -1,0 +1,32 @@
+ <div class="quickbuy-form">
+    <div class="row">
+ <div class="product-details col-sm-6">
+           <div class="section border-bottom">
+        {% if product.available %}
+             >>
+        <form class="product-form" id="product-form" action="/cart/add" method="post" enctype="multipart/form-data" data-product-id="{{product.id}}">
+          <div id="product-variants">
+            <select id="product-select" name="id" style="display: none;">
+              {% for variant in product.variants %}
+              {% if variant.available %}
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{% comment %}ly_code_replace_for_[ variant.title ]_begin{% endcomment %}{% include 'ly-title' with variant %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %} - {{ variant.price | money_with_currency }}</option>
+              {% else %}
+              <option disabled="disabled">
+                {% comment %}ly_code_replace_for_[ variant.title ]_begin{% endcomment %}{% include 'ly-title' with variant %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %} - {{'products.product.sold_out' | t}}
+              </option>
+              {% endif %}
+              {% endfor %}
+            </select>
+               <div class="quantity">
+            <div class="group-input">      
+              <input type="number" title="{{'products.product.quantity' | t}}" step="1" min="1" size="4" id="quantity" name="quantity" value="1" />
+              <span class="bar"></span>
+            </div>
+            <button type="submit" class="btn btn-1 ripple add-to-cart" name="add" id="add" data-addtocart="{% comment %}ly_i18n_replace_for_['products.product.add_to_cart' | t]_begin{% endcomment %}{% capture ly_template %}{{'products.product.add_to_cart' | t}}{% endcapture %}{% include 'ly-static-string' with '7073447' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}" data-unavailable="{{'products.product.unavailable' | t}}" data-soldout="{{'products.product.sold_out' | t}}">{% comment %}ly_i18n_replace_for_['products.product.add_to_cart' | t]_begin{% endcomment %}{% capture ly_template %}{{'products.product.add_to_cart' | t}}{% endcapture %}{% include 'ly-static-string' with '7073447' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</button>
+          </div>
+          </div>
+             </form>
+          {%endif %}
+          </div>
+             </div></div>
+          

@@ -1,0 +1,84 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% comment %} ----- Blog Search ----- {% endcomment %}
+{% if settings.blog_search_show %}
+<div class="widget-wrapper blog-search">
+  <form action="/search" method="get">
+    <input type="hidden" name="type" value="article" />
+    <div class="group-input">      
+      <input type="search" name="q" accesskey="4" autocomplete="off" />
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>{% comment %}ly_new_settings_replace_for_[ settings.blog_search_placeholder ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711939"] %}{% assign ly_translation = shop.metafields[namespace]["id2711939"] %}{% else %}{% assign ly_translation = settings.blog_search_placeholder %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}</label>
+      <button type="submit"><i class="zmdi"></i></button>
+    </div>
+  </form>
+</div>
+{% endif %}
+
+
+{% comment %} ----- Recent Articles ----- {% endcomment %}
+{% if settings.blog_recent_show %}
+<div class="widget-wrapper">
+  {% if settings.blog_recent_heading != blank %}
+  <div class="title">
+    {% comment %}ly_new_settings_replace_for_[ settings.blog_recent_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711940"] %}{% assign ly_translation = shop.metafields[namespace]["id2711940"] %}{% else %}{% assign ly_translation = settings.blog_recent_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+  </div>
+  {% endif %}
+  <ul class="list-unstyled list-styled">
+    {% for article in blog.articles limit:settings.blog_recent_number %}
+      <li>
+        <div class="stitle">{% comment %}ly_code_replace_for_[ article.title | link_to: article.url ]_begin{% endcomment %}{% include 'ly-title' with article %}{{ ly_translation | link_to: article.url }}{% comment %}ly_code_replace_end{% endcomment %}</div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
+{% comment %} ----- Blog Tags ----- {% endcomment %}
+{% if settings.blog_tags_show %}
+{% if blog.all_tags.size > 0 %}
+<div class="widget-wrapper">
+  {% if settings.blog_tags_heading != blank %}
+  <div class="title">
+    {% comment %}ly_new_settings_replace_for_[ settings.blog_tags_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711941"] %}{% assign ly_translation = shop.metafields[namespace]["id2711941"] %}{% else %}{% assign ly_translation = settings.blog_tags_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+  </div>
+  {% endif %}
+  <ul class="list-inline blog-tags">
+    {% for tag in blog.all_tags %}
+    {% if current_tags contains tag %}
+    <li class="active">
+      <i class="fa fa-tag"></i>
+      {{ tag | link_to_remove_tag: tag }}
+    </li>
+    {% else %}
+    <li>
+      <i class="fa fa-tag"></i>
+      {{ tag | link_to_add_tag: tag }}
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endif %}
+
+
+{% comment %} ----- Social Widget ----- {% endcomment %}
+{% if settings.blog_social_visible != 'none' %}
+
+<div class="widget-wrapper">
+  {% if settings.blog_social_heading != blank %}
+  <div class="title">
+    {% comment %}ly_new_settings_replace_for_[ settings.blog_social_heading ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2711942"] %}{% assign ly_translation = shop.metafields[namespace]["id2711942"] %}{% else %}{% assign ly_translation = settings.blog_social_heading %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+  </div>
+  {% endif %}
+  
+  {% case settings.blog_social_visible %}
+  {% when 'twitter' %}
+  {% include 'twitter' %}
+
+  {% when 'facebook' %}
+  {% include 'facebook' %}
+  {% endcase %}
+</div>
+{% endif %}

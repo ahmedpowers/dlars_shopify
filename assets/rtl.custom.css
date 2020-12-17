@@ -1,0 +1,30 @@
+.btn-sahi{
+  background-color: #FB6E7D !Important;
+    color: #fff !important;
+    border: 0px !important;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    position: absolute !Important;
+    top: 0px !important;
+    /* line-height: 27px !Important; */
+    padding: 0px 5px !Important;
+    right: 0px !Important;
+    height: 45px !Important;
+    font-size: 12px !Important;
+
+}
+#category_filter
+{
+   display:none !important;
+}
+.is-mobile .menu-mobile .mobile_nav li a
+{
+   color:#000 !important;
+}
+
+#special-offers .offer .offer-img .offer-cpt, h1, h2, h3, h4, h5, h6, h7, p, a, body, html{
+  
+ letter-spacing: 0 !important; 
+  
+} 

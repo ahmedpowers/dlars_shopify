@@ -1,0 +1,10 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div id="col-main" class="all-collections">
+  {% for collection in collections %}
+  {% unless collection.handle == 'frontpage' or collection.handle == 'all' %}
+  <div class="collection-item animated">
+    {% include 'collection-item' %}
+  </div>
+  {% endunless %}
+  {% endfor %}
+</div>

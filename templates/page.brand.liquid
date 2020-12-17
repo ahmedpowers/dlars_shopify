@@ -1,0 +1,10 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div id="col-main" class="all-collections">
+  {% for collection in collections %}
+  {% unless collection.handle == 'men-online-clothes' or collection.handle == 'all' or collection.handle == 'unisex' or collection.handle == 'women-online-clothes' or collection.handle == 'brands' or collection.handle == 'sale' or collection.handle == 'new-collection-men-women-clothing'  %}
+  <div class="collection-item animated">
+    {% include 'brands-item' %}
+  </div>
+  {% endunless %}
+  {% endfor %}
+</div>

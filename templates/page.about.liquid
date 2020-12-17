@@ -1,0 +1,17 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}<div id="col-main" class="col-md-12 clearfix">
+  <div class="page">
+    <div class="page_content">
+      <div class="title"><span>{% comment %}ly_code_replace_for_[page.title]_begin{% endcomment %}{% include 'ly-title' with page %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}</span></div>
+      <div class="row">
+        <div class="col-sm-7">
+          {% comment %}ly_code_replace_for_[ page.content ]_begin{% endcomment %}{% include 'ly-content' with page %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+        </div>
+        <div class="col-sm-5">
+          <div class="responsive-video">
+            {% comment %}ly_new_settings_replace_for_[ settings.aboutus_embed ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign namespace = language | append: "as" %}{% if shop.metafields[namespace]["id2712124"] %}{% assign ly_translation = shop.metafields[namespace]["id2712124"] %}{% else %}{% assign ly_translation = settings.aboutus_embed %}{% endif %}{{ ly_translation }}{% comment %}ly_new_settings_replace_end{% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
